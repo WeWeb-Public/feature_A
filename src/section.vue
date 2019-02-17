@@ -3,9 +3,7 @@
         <!-- wwManager:start -->
         <wwSectionEditMenu v-bind:sectionCtrl="sectionCtrl"></wwSectionEditMenu>
         <!-- wwManager:end -->
-
         <wwObject class="background" v-bind:ww-object="section.data.background" ww-category="background"></wwObject>
-
         <div class="container section-padding">
             <div class="row">
                 <div class="block-header">
@@ -17,37 +15,29 @@
                     </h2>
                 </div>
             </div>
-
             <div class="row">
                 <div class="block-content">
                     <div class="feature-block" v-for="block in section.data.blocks" :key="block.uniqueId">
-
                         <div class="block-img">
                             <wwObject v-bind:ww-object="block.img"></wwObject>
                         </div>
-                        
                         <div class="block-title">
                             <wwObject v-bind:ww-object="block.title"></wwObject>
                         </div>
-                        
                         <div class="block-text">
                             <wwObject v-bind:ww-object="block.text"></wwObject>
                         </div>
-
                         <div class="button-container">
                             <div class="button-wrapper">
                                 <wwObject v-bind:ww-object="block.button"></wwObject>
                             </div>
                         </div>
-                        
                         <!-- wwManager:start -->
                         <div v-show="editMode" class="edit-button-top-left" @click="removeBlock(block)">
                             <i class="wwi wwi-delete" aria-hidden="true"></i>
                         </div>
                         <!-- wwManager:end -->
-
                     </div>
-                   
                     <!-- wwManager:start -->
                     <div v-show="editMode" class="add-block-container">
                         <div class="add-block" @click="addBlock()">
@@ -58,27 +48,27 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
 export default {
-    name: "feature_A",
+    name: "__COMPONENT_NAME__",
     props: {
         sectionCtrl: Object
     },
     data() {
-        return {
-        }
+        return {}
     },
     computed: {
         section() {
             return this.sectionCtrl.get();
         },
+        // wwManager:start
         editMode() {
             return this.sectionCtrl.getEditMode() == 'CONTENT'
         }
+        // wwManager:end
     },
     created() {
         //Initialize section data
@@ -108,6 +98,7 @@ export default {
                 uniqueId: wwLib.wwUtils.getUniqueId()
             }
         },
+        // wwManager:start
         addBlock() {
             this.section.data.blocks.push(this.getNewBlock())
             this.sectionCtrl.update(this.section);
@@ -116,6 +107,7 @@ export default {
             this.section.data.blocks.splice(this.section.data.blocks.indexOf(block), 1);
             this.sectionCtrl.update(this.section);
         }
+        // wwManager:end
     }
 };
 </script>
@@ -283,9 +275,6 @@ export default {
     .feature_A .section-padding {
         padding: 75px 50px
     }
-}
-
-@media (min-width: 1024px) {
     .feature_A .block-content {
         -ms-flex: 0 0 66.333333%;
         flex: 0 0 66.333333%;
